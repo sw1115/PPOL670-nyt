@@ -72,8 +72,15 @@ head(nh_counties_all)
 Test your knowledge: Write the code to pivot the New Hampshire data to a longer form, then back. Note the inclusion of the FIPS code, which is unique to each county, changes the code"
 
 ```{r}
+#pivot to long data
+nh_counties_long <- nh_counties_all %>% 
+  pivot_longer(cols = c(3:36), names_to = "candidate", values_to = "votes")
+head(nh_counties_long, n=20)
 
-
+#pivot to wide data
+nh_counties_wide <- nh_counties_long %>% 
+  pivot_wider(id_cols = c(1:2), names_from = candidate, values_from = votes)
+head(nh_counties_wide)
 ```
 
 If you wrote the above code correctly, you should be able to run the code below and [match the results from AP](https://www.google.com/search?q=fianl+results+new+hampshire&rlz=1C5CHFA_enUS865US865&oq=fianl+results+new+hampshire&aqs=chrome..69i57j33l7.3442j0j7&sourceid=chrome&ie=UTF-8).
@@ -138,5 +145,5 @@ Test the function with Iowa and New Hampshire!
 
 ```{r}
 # test here!
-
+test_nh <- primary_results("2020-02-11", "new-hampshire")
 ```
